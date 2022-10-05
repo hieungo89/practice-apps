@@ -1,17 +1,22 @@
 import React from 'react';
 
-const FormInput = ({entry, definition}) => {
-
+const FormInput = ({ wordEntry, setWordEntry, definition, setDefinitionEntry, handleEntry }) => {
 
   return (
     <div>
-      <p>Dictionary word to fill out</p>
+      <p>Place your word and definition</p>
       <input type='text'
-      placeholder='Add word...'
-      onChange={(e) => {entry(e.target.value)}}/><br/>
+        placeholder='Add word...'
+        value={wordEntry}
+        onChange={(e) => { setWordEntry(e.target.value) }} /><br/>
       <textarea placeholder='Definition'
-      onChange={(e) => {definition(e.target.value)}}/>
-      <button>ADD</button>
+        value={definition}
+        onChange={(e) => { setDefinitionEntry(e.target.value) }} /><br/>
+      <button onClick={() => {
+        handleEntry(wordEntry, definition);
+        setWordEntry('');
+        setDefinitionEntry('');
+        }}>ADD</button>
     </div>
   )
 }

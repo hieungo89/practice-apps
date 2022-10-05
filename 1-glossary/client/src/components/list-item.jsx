@@ -1,11 +1,14 @@
 import React from 'react';
 
-const ListItem = () => {
+const ListItem = ({ word, handleEdit, handleDelete }) => {
+// console.log('word: ', word)
 
   return (
-    <div>
-      listItem
-    </div>
+    <ul>
+      <li>{word.word}: {word.definition}</li>
+      <button>Edit</button>
+      <button onClick={() => {handleDelete(word)}}>X</button>
+    </ul>
   )
 }
 

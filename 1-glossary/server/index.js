@@ -55,11 +55,12 @@ app.put('/glossary', (req, res) => {
 
 // DELETE specific data
 app.delete('/glossary', (req, res) => {
-  // HARD CODE need to replace
-  let word = "love";
-  //
+  // // HARD CODE need to replace
+  // let word = "eat";
+  // //
+  console.log('req body ', req.entry)
 
-  db.Content.remove({word: word})
+  db.Content.findOneAndDelete({word: req.data})
     .then(data => {
       res.send(data);
     })
