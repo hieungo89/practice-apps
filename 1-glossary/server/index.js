@@ -21,47 +21,28 @@ app.use(express.json());
 app.post('/glossary', (req, res) => {
   db.save(req.body)
     .then(data => { res.send(data); })
-    .catch(err => { console.log(err)})
+    .catch(err => { console.log(err) })
 });
 
 // GET all data
 app.get('/glossary', (req, res) => {
   db.Content.find()
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(404).send(err);
-    })
+    .then(data => { res.send(data); })
+    .catch(err => { console.log(err) })
 })
 
 // UPDATE specific data
 app.put('/glossary', (req, res) => {
-  // // HARD CODE need to replace
-  // let word = "love";
-  // let definition = "a feeling more than like"
-  // //
-
-  db.Content.findOneAndUpdate({"word": req.body.word}, {$set: {definition: req.body.definition}})
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(404).send(err);
-    })
+  db.Content.findOneAndUpdate({ "word": req.body.word }, { $set: { definition: req.body.definition } })
+    .then(data => { res.send(data); })
+    .catch(err => { console.log(err) })
 })
 
 // DELETE specific data
 app.delete('/glossary', (req, res) => {
-  console.log('req body ', req.body)
-
-  db.Content.findOneAndDelete({word: req.body.word})
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(404).send(err);
-    })
+  db.Content.findOneAndDelete({ word: req.body.word })
+    .then(data => { res.send(data); })
+    .catch(err => { console.log(err) })
 })
 
 

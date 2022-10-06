@@ -3,9 +3,10 @@ import ListItem from './list-item.jsx';
 
 const List = ({ wordList, handleEdit, handleDelete }) => (
   <div className="list">
-    <p>Glossary word list</p>
+    <h3>Glossary word list</h3>
     <div>
-      {wordList.map((word) => {
+      {wordList.length === 0 && <p>Word Not Found</p>}
+      {wordList.length && wordList.map((word) => {
         return <ListItem key={word._id} word={word} handleEdit={handleEdit} handleDelete={handleDelete} />
       })}
     </div>

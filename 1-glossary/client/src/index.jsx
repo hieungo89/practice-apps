@@ -15,6 +15,7 @@ const App = (props) => {
 
   const handleEntry = (entry, definition) => {
     // POST
+    entry = entry[0].toUpperCase() + entry.slice(1);
     axios.post(baseURL, {
       word: entry,
       definition: definition
@@ -34,16 +35,25 @@ const App = (props) => {
         container.push(wordList[i])
       }
     }
-    // if (!container.length) {
-    //   container.push({_id: '000', word: 'No Such Word Added'});
-    // }
     setSearchWord(container);
   }
 
   const handleEdit = (entry) => {
     // EDIT
-
-
+    var newDescription = prompt("Edit Definition Here: ");
+    if (newDescription) {
+      entry.definition = newDescription;
+    }
+    console.log(entry)
+    console.log(searchWord)
+    axios.put(baseURL, entry)
+      .then(result => {
+        let container = [];
+        for (let i = 0; i < wordList.length; i++) {
+          container.push(wordList[i]);
+        }
+        setSearchWord(container);
+      })
   }
 
   const handleDelete = (entry) => {
