@@ -7,7 +7,6 @@ const app = express();
 
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
-
 app.use(express.json());
 
 /****
@@ -27,7 +26,6 @@ app.post('/glossary', (req, res) => {
 
 // GET all data
 app.get('/glossary', (req, res) => {
-  // console.log('req body' , req);
   db.Content.find()
     .then(data => {
       res.send(data);
@@ -39,12 +37,12 @@ app.get('/glossary', (req, res) => {
 
 // UPDATE specific data
 app.put('/glossary', (req, res) => {
-  // HARD CODE need to replace
-  let word = "love";
-  let definition = "a feeling more than like"
-  //
+  // // HARD CODE need to replace
+  // let word = "love";
+  // let definition = "a feeling more than like"
+  // //
 
-  db.Content.findOneAndUpdate({"word": word}, {$set: {definition: definition}})
+  db.Content.findOneAndUpdate({"word": req.body.word}, {$set: {definition: req.body.definition}})
     .then(data => {
       res.send(data);
     })
@@ -55,12 +53,9 @@ app.put('/glossary', (req, res) => {
 
 // DELETE specific data
 app.delete('/glossary', (req, res) => {
-  // // HARD CODE need to replace
-  // let word = "eat";
-  // //
-  console.log('req body ', req.entry)
+  console.log('req body ', req.body)
 
-  db.Content.findOneAndDelete({word: req.data})
+  db.Content.findOneAndDelete({word: req.body.word})
     .then(data => {
       res.send(data);
     })

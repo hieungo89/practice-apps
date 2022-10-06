@@ -6,7 +6,7 @@ const ListItem = ({ word, handleEdit, handleDelete }) => {
   return (
     <ul>
       <li>{word.word}: {word.definition}</li>
-      <button>Edit</button>
+      <button onClick={() => {handleEdit(word)}} >Edit</button>
       <button onClick={() => {handleDelete(word)}}>X</button>
     </ul>
   )

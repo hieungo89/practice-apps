@@ -14,6 +14,7 @@ const App = (props) => {
   const [definitionEntry, setDefinitionEntry] = useState('');
 
   const handleEntry = (entry, definition) => {
+    // POST
     axios.post(baseURL, {
       word: entry,
       definition: definition
@@ -21,6 +22,7 @@ const App = (props) => {
       .then(result => {
         console.log(result);
         setWordList(wordList.concat(result.data))
+        setSearchWord(searchWord.concat(result.data))
         // setWordList(...wordList, result.data) // why doesn't work?
       })
   }
@@ -28,27 +30,38 @@ const App = (props) => {
   const handleSearch = (entry) => {
     let container = [];
     for (let i = 0; i < wordList.length; i++) {
-      if (wordList[i].word.includes(entry)) {
+      if (wordList[i].word.toLowerCase().includes(entry)) {
         container.push(wordList[i])
       }
     }
+    // if (!container.length) {
+    //   container.push({_id: '000', word: 'No Such Word Added'});
+    // }
     setSearchWord(container);
   }
 
-  const handleEdit = (word) => {
+  const handleEdit = (entry) => {
+    // EDIT
+
 
   }
 
   const handleDelete = (entry) => {
-    console.log(entry)
-    axios.delete(baseURL, { word: entry.word }) // <- needs work
+    // DELETE
+    axios.delete(baseURL, { data: { word: entry.word } })
       .then(result => {
-        console.log('deleted ', result);
-        // setWordList
+        let container = [];
+        for (let i = 0; i < wordList.length; i++) {
+          if (wordList[i].word !== result.data.word) {
+            container.push(wordList[i])
+          }
+        }
+        setSearchWord(container);
       })
   }
 
   useEffect(() => {
+    // GET
     axios.get(baseURL)
       .then(result => {
         setWordList(result.data);
